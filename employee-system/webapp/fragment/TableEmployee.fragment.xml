@@ -1,0 +1,59 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core"
+                         xmlns="sap.m">
+    <Panel>
+        <Button id="btnShowCity" 
+                text="{i18n>btnShowCity}" 
+                visible="{jsonConfig>/visibleBtnShowCity}" 
+                press=".onShowCity"/>
+        
+        <Button id="btnHideCity" 
+                text="{i18n>btnHideCity}" 
+                visible="{jsonConfig>/visibleBtnHideCity}" 
+                press=".onHideCity"/>
+
+        <Table id="tableEmployee"
+                items="{odataNorthwind>/Employees}">
+            <columns>
+                <Column visible="{jsonConfig>/visibleID}">
+                    <header>
+                        <Label text="{i18n>tableColumnID}"/>
+                    </header>
+                </Column>
+                <Column visible="{jsonConfig>/visibleName}">
+                    <header>
+                        <Label text="{i18n>tableColumnName}"/>
+                    </header>
+                </Column>
+                <Column visible="{jsonConfig>/visibleCountry}">
+                    <header>
+                        <Label text="{i18n>tableColumnCountry}"/>
+                    </header>
+                </Column>
+                <Column visible="{jsonConfig>/visibleCity}">
+                    <header>
+                        <Label text="{i18n>tableColumnCity}"/>
+                    </header>
+                </Column>
+                <Column>
+                    <header>
+                        <Label text="{i18n>tableColumnShowDetails}"/>
+                    </header>
+                </Column>
+            </columns>
+            <items>
+                <ColumnListItem type="Navigation" press=".onShowEmployeeDetails">
+                    <cells>
+                        <Label text="{odataNorthwind>EmployeeID}"/>
+                        <Label text="{odataNorthwind>LastName}, {odataNorthwind>FirstName}"/>
+                        <Label text="{odataNorthwind>Country}"/>
+                        <Label text="{odataNorthwind>City}"/>
+                        <core:Icon src="sap-icon://show" press=".showOrders"/>
+                    </cells>
+                </ColumnListItem>
+            </items>
+        </Table>
+
+        <HBox id="boxOrdersTable">
+        </HBox>
+    </Panel>
+</core:FragmentDefinition>

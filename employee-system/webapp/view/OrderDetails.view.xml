@@ -1,0 +1,87 @@
+<mvc:View
+    controllerName="sapui5.com.employeesystem.controller.OrderDetails"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:sc="sapui5.com.employeesystem.control">
+    <Page>
+        <customHeader>
+            <Bar>
+                <contentLeft>
+                    <Button icon="sap-icon://nav-back" press="onBack"/>
+                </contentLeft>
+                <contentMiddle>
+                    <Text text="{i18n>orderID}: {odataNorthwind>OrderID}"/>
+                </contentMiddle>
+            </Bar>
+        </customHeader>
+        <content>
+            <Panel headerText="{i18n>customerId}: {odataNorthwind>CustomerID}">
+                <l:Grid defaultSpan="L6 M6 S12">
+                    <f:Form editable="false">
+                        <f:layout>
+                            <f:ResponsiveGridLayout labelSpanL="6" labelSpanM="6" labelSpanS="12"/>
+                        </f:layout>
+                        <f:formContainers>
+                            <f:FormContainer>
+                                <f:formElements>
+                                    
+                                    <f:FormElement label="{i18n>orderDate}">
+                                        <Text text="{path:'odataNorthwind>OrderDate', type:'sap.ui.model.odata.type.Date'}"/>
+                                    </f:FormElement>
+
+                                    <f:FormElement label="{i18n>freight}">
+                                        <Text text="{odataNorthwind>Freight}"/>
+                                    </f:FormElement>
+
+                                    <f:FormElement label="{i18n>shipName}">
+                                        <Text text="{odataNorthwind>ShipName}"/>
+                                    </f:FormElement>
+
+                                    <f:FormElement label="{i18n>shipAddress}">
+                                        <Text text="{odataNorthwind>ShipAddress}, {odataNorthwind>ShipCity}, {odataNorthwind>ShipCountry}"/>
+                                    </f:FormElement>
+
+                                </f:formElements>
+                            </f:FormContainer>
+                        </f:formContainers>
+                    </f:Form>
+                    <FlexBox class="sapUiTinyMargin">
+                        <sc:Signature id="signature"/>
+                        <Button text="{i18n>btnClear}"
+                                press=".onClearSignature"
+                                class="sapUiTinyMarginBegin"/>
+                    </FlexBox>
+                </l:Grid>
+
+                <UploadCollection id="uploadFile"
+                                  maximumFilenameLength="55"
+                                  maximumFileSize="10"
+                                  multiple="true"
+                                  sameFilenameAllowed="true"
+                                  instantUpload="true"
+                                  uploadUrl="/aapgemployees/sap/opu/odata/sap/YSAPUI5_SRV_01/FilesSet"
+                                  change=".onFileChange"
+                                  uploadComplete=".onFileUploadComplete"
+                                  beforeUploadStarts=".onFileBeforeUpload"
+                                  fileDeleted=".onFileDelete"/> 
+
+            </Panel> 
+ 
+            <Panel headerText="{i18n>orderProducts}">
+                <List items="{path:'odataNorthwind>Order_Details', parameters:{expand: 'Product'}, factory: '.factoryOrderDetails'}"/>
+            </Panel>
+
+        </content>
+
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer/>
+                <Button text="{i18n>saveSignature}" press=".onSaveSignature"/>
+            </Toolbar>
+        </footer>
+    </Page>
+</mvc:View>
