@@ -1,0 +1,74 @@
+_schema-version: "3.2"
+ID: sap-fiori-employee-example
+version: 0.0.1
+modules:
+- name: sap-fiori-employee-example-approuter
+  type: approuter.nodejs
+  path: sap-fiori-employee-example-approuter
+  requires:
+  - name: sap-fiori-employee-example_html_repo_runtime
+  - name: sap-fiori-employee-example-destination-service
+    group: destinations
+    properties:
+      forwardAuthToken: false
+      name: ui5
+      url: https://ui5.sap.com
+  parameters:
+    disk-quota: 256M
+    memory: 256M
+- name: sap-fiori-employee-example-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: sap-fiori-employee-example-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - sapui5comemployeesystem.zip
+      name: sapui5comemployeesystem
+      target-path: resources/
+- name: sapui5comemployeesystem
+  type: html5
+  path: employee-system
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: sap-fiori-employee-example_html_repo_runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
+- name: sap-fiori-employee-example-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: sap-fiori-employee-example-html5-srv
+    service-plan: app-host
+- name: sap-fiori-employee-example-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: sap-fiori-employee-example-destination-service
+    service-plan: lite
+parameters:
+  deploy_mode: html5-repo
