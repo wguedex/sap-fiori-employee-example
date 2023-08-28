@@ -1,12 +1,13 @@
 _schema-version: "3.2"
 ID: sap-fiori-employee-example
 version: 0.0.1
-modules:
+modules: 
 - name: sap-fiori-employee-example-approuter
   type: approuter.nodejs
   path: sap-fiori-employee-example-approuter
   requires:
   - name: sap-fiori-employee-example_html_repo_runtime
+  - name: uaa_employees
   - name: sap-fiori-employee-example-destination-service
     group: destinations
     properties:
@@ -46,6 +47,12 @@ resources:
   parameters:
     service: html5-apps-repo
     service-plan: app-runtime
+- name: uaa_employees
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa  
+    service-plan: application
 - name: sap-fiori-employee-example-repo-host
   type: org.cloudfoundry.managed-service
   parameters:

@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "Northwind.svc": {
-        "uri": "/Northwind_Service/V2/Northwind/Northwind.svc/",
+        "uri": "V2/Northwind/Northwind.svc/",
         "type": "OData",
         "settings": { 
           "odataVersion": "2.0"
@@ -85,7 +85,6 @@
           "refreshAfterChange": false
         }
       },
-
       "incidenceModel": {
         "type": "sap.ui.model.odata.v2.ODataModel",
         "dataSource": "YSAPUI5_SRV_01",
@@ -122,16 +121,16 @@
           "name": "RouteMainView",
           "pattern": "",
           "target": [
-              "TargetMainView"
+            "TargetMainView"
           ]
-      },
-      {
+        },
+        {
           "name": "RouteOrderDetails",
           "pattern": "OrderDetails/{OrderId}",
           "target": [
-              "TargetOrderDetails"
+            "TargetOrderDetails"
           ]
-      }
+        }
       ],
       "targets": {
         "TargetMainView": {
@@ -140,12 +139,12 @@
           "clearControlAggregation": false,
           "viewId": "Main",
           "viewName": "Main"
-      },
-      "TargetOrderDetails": {
+        },
+        "TargetOrderDetails": {
           "viewType": "XML",
           "viewId": "OrderDetails",
           "viewName": "OrderDetails"
-      }
+        }
       }
     },
     "rootView": {

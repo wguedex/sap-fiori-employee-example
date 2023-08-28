@@ -7,7 +7,7 @@ sap.ui.define([
     function (Control) {
         "use strict";
 
-        return Control.extend("sapui5.com.employeesystem.control.Signature", {
+        return Control.extend("ssapui5.com.employeesystem.control.Signature", {
 
             metadata: {
                 properties: {

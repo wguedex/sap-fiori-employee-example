@@ -15,7 +15,7 @@ sap.ui.define([
     function (Controller, History, MessageBox, Filter, FilterOperator) {
         "use strict";
 
-        return Controller.extend("sapui5.com.employeesystem..controller.OrderDetails", {
+        return Controller.extend("sapui5.com.employeesystem.controller.OrderDetails", {
 
             onInit: function () {
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
